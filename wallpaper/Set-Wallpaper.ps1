@@ -5,9 +5,19 @@ function Set-Wallpaper() {
         $Path,
         [ValidateSet("Tile", "Center", "Stretch", "Fit", "Fill")]
         [string]
-        $Style = "Fill"
+        $Style = "Fill",
+        [switch]
+        $Random
     )
-  
+
+    if ($Random) {
+        if ((Get-Item $Path).PSIsContainer -eq $false) {
+            Write-Warning "$Path is not a directory! Setting file as new wallpaper..."
+        }
+
+        $Path = (Get-ChildItem -Recurse:$Recurse $Path -File | Where-Object { $_.Extension -in @(".jpg", ".png", ".bmp") } | Get-Random).FullName
+    }
+
     $SPI_SETDESKWALLPAPER = 0x14
     $SPIF_UPDATEINIFILE = 0x1
     $MethodDefinition = @"
