@@ -2,8 +2,8 @@ function Set-RandomWallhavenWallpaper() {
     [CmdletBinding()]
     param ()
 
-    $randomPage = (1..100 | random)
-    $randomWallpaper = Get-WallhavenWallpaper -Search -Category General, Anime -Purity Sfw -Order desc -SearchSorting favorites -Ratios 16x10, 16x9 -PageNumber $randomPage | random
+    $randomPage = (1..25 | random)
+    $randomWallpaper = Get-WallhavenWallpaper -Search -Category General -Purity Sfw -Order desc -SearchSorting favorites -Ratios 16x10, 16x9 -PageNumber $randomPage | random
     $fileName = $randomWallpaper.FileName;
     $destinationPath = "D:\Wallheaven-Wallpaper\$fileName"
     
